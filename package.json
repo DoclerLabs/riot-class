@@ -2,7 +2,7 @@
   "name": "riot-class",
   "version": "1.0.0",
   "description": "ES6 class wrapper to create riot tags.",
-  "main": "index.js",
+  "main": "dist/riot-class.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
