@@ -1,0 +1,25 @@
+{
+  "name": "riot-class",
+  "version": "1.0.0",
+  "description": "ES6 class wrapper to create riot tags.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoclerLabs/riot-class.git"
+  },
+  "keywords": [
+    "riot",
+    "class",
+    "es6",
+    "harmony"
+  ],
+  "author": "Victor Vincent",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DoclerLabs/riot-class/issues"
+  },
+  "homepage": "https://github.com/DoclerLabs/riot-class#readme"
+}
