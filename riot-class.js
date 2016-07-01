@@ -8,25 +8,13 @@ r.Abstract = class RiotTagAbstract {
         this.tag     = tag
         this.options = options
 
-        this.tag.on('mount', this.onMount.bind(this))
-        this.tag.on('before-mount', this.onBeforeMount.bind(this))
-        this.tag.on('unmount', this.onUnMount.bind(this))
-        this.tag.on('before-unmount', this.onBeforeUnMount.bind(this))
-        this.tag.on('update', this.onUpdate.bind(this))
-        this.tag.on('updated', this.onUpdated.bind(this))
+        this.onMount && this.tag.on('mount', this.onMount.bind(this))
+        this.onBeforeMount && this.tag.on('before-mount', this.onBeforeMount.bind(this))
+        this.onUnMount && this.tag.on('unmount', this.onUnMount.bind(this))
+        this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this))
+        this.onUpdate && this.tag.on('update', this.onUpdate.bind(this))
+        this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this))
     }
-
-    onBeforeMount(){}
-
-    onBeforeUnMount(){}
-
-    onMount(){}
-
-    onUnMount(){}
-
-    onUpdate(){}
-
-    onUpdated(){}
 }
 
 /**
