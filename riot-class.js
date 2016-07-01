@@ -1,8 +1,6 @@
 import riot from 'riot'
 
-let r = Object.assign({}, riot)
-
-r.Abstract = class RiotTagAbstract {
+r.abstract = class RiotTagAbstract {
     constructor(tag, options){
         r.observable(this)
         this.tag     = tag
@@ -23,7 +21,7 @@ r.Abstract = class RiotTagAbstract {
  * @param fn   {function} Context of the tag
  * @constructor
  */
-r.Register = function RiotRegisterTag(html, fn = function(){}){
+r.register = function RiotRegisterTag(html, fn = function(){}){
     html = html.trim()
     let innerHtml = html.match(/<(.*?)>([\s\S]*?)(<\/\1>)(?![\s\S])/)[2].trim()
     let tag       = html.match(/<.*?>/m)[0]
@@ -86,8 +84,3 @@ r.Register = function RiotRegisterTag(html, fn = function(){}){
     }
     r.tag(name, innerHtml, null, attr, ctx)
 }
-
-r.Observable = r.observable
-r.Router     = r.route
-
-export default r
