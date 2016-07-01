@@ -1,9 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _riot = require('riot');
 
 var _riot2 = _interopRequireDefault(_riot);
@@ -12,9 +8,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var r = Object.assign({}, _riot2.default);
-
-r.Abstract = function RiotTagAbstract(tag, options) {
+r.abstract = function RiotTagAbstract(tag, options) {
     _classCallCheck(this, RiotTagAbstract);
 
     r.observable(this);
@@ -35,7 +29,7 @@ r.Abstract = function RiotTagAbstract(tag, options) {
  * @param fn   {function} Context of the tag
  * @constructor
  */
-r.Register = function RiotRegisterTag(html) {
+r.register = function RiotRegisterTag(html) {
     var fn = arguments.length <= 1 || arguments[1] === undefined ? function () {} : arguments[1];
 
     html = html.trim();
@@ -92,8 +86,3 @@ r.Register = function RiotRegisterTag(html) {
     };
     r.tag(name, innerHtml, null, attr, ctx);
 };
-
-r.Observable = r.observable;
-r.Router = r.route;
-
-exports.default = r;
