@@ -14,36 +14,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var r = Object.assign({}, _riot2.default);
 
-r.Abstract = function () {
-    function RiotTagAbstract(tag, options) {
-        _classCallCheck(this, RiotTagAbstract);
+r.Abstract = function RiotTagAbstract(tag, options) {
+    _classCallCheck(this, RiotTagAbstract);
 
-        r.observable(this);
-        this.tag = tag;
-        this.options = options;
+    r.observable(this);
+    this.tag = tag;
+    this.options = options;
 
-        this.tag.on('mount', this.onMount.bind(this));
-        this.tag.on('before-mount', this.onBeforeMount().bind(this));
-        this.tag.on('unmount', this.onUnMount().bind(this));
-        this.tag.on('before-unmount', this.onBeforeUnMount().bind(this));
-        this.tag.on('update', this.onUpdate.bind(this));
-        this.tag.on('updated', this.onUpdated.bind(this));
-    }
-
-    RiotTagAbstract.prototype.onBeforeMount = function onBeforeMount() {};
-
-    RiotTagAbstract.prototype.onBeforeUnMount = function onBeforeUnMount() {};
-
-    RiotTagAbstract.prototype.onMount = function onMount() {};
-
-    RiotTagAbstract.prototype.onUnMount = function onUnMount() {};
-
-    RiotTagAbstract.prototype.onUpdate = function onUpdate() {};
-
-    RiotTagAbstract.prototype.onUpdated = function onUpdated() {};
-
-    return RiotTagAbstract;
-}();
+    this.onMount && this.tag.on('mount', this.onMount.bind(this));
+    this.onBeforeMount && this.tag.on('before-mount', this.onBeforeMount.bind(this));
+    this.onUnMount && this.tag.on('unmount', this.onUnMount.bind(this));
+    this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this));
+    this.onUpdate && this.tag.on('update', this.onUpdate.bind(this));
+    this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this));
+};
 
 /**
  * Register a riot tag.
@@ -100,7 +84,7 @@ r.Register = function RiotRegisterTag(html) {
                 self[prop.name] = function () {
                     var _self$tagClass;
 
-                    (_self$tagClass = self.tagClass)[prop.name].apply(_self$tagClass, arguments);
+                    return (_self$tagClass = self.tagClass)[prop.name].apply(_self$tagClass, arguments);
                 };
             }
         });

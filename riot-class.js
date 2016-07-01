@@ -78,7 +78,7 @@ r.Register = function RiotRegisterTag(html, fn = function(){}){
             }
             else {
                 self[prop.name] = function(...args){
-                    self.tagClass[prop.name](...args)
+                    return self.tagClass[prop.name](...args)
                 }
             }
         })
