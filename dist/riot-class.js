@@ -3,6 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.riot = undefined;
+exports.TagAbstract = TagAbstract;
 exports.RegisterTag = RegisterTag;
 
 var _riot = require('riot');
@@ -13,33 +15,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var TagAbstract = function TagAbstract(tag, options) {
-    _classCallCheck(this, TagAbstract);
+function TagAbstract(html) {
+    var cls = function TagAbstract(tag, options) {
+        _classCallCheck(this, TagAbstract);
 
-    _riot2.default.observable(this);
-    this.tag = tag;
-    this.options = options;
+        _riot2.default.observable(this);
+        this.tag = tag;
+        this.options = options;
 
-    this.onMount && this.tag.on('mount', this.onMount.bind(this));
-    this.onBeforeMount && this.tag.on('before-mount', this.onBeforeMount.bind(this));
-    this.onUnMount && this.tag.on('unmount', this.onUnMount.bind(this));
-    this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this));
-    this.onUpdate && this.tag.on('update', this.onUpdate.bind(this));
-    this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this));
-};
+        this.onMount && this.tag.on('mount', this.onMount.bind(this));
+        this.onBeforeMount && this.tag.on('before-mount', this.onBeforeMount.bind(this));
+        this.onUnMount && this.tag.on('unmount', this.onUnMount.bind(this));
+        this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this));
+        this.onUpdate && this.tag.on('update', this.onUpdate.bind(this));
+        this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this));
+    };
+    cls.TEMPLATE = html;
+    return cls;
+}
 
 /**
  * Register a riot tag.
- * @param html {string}   Template code
- * @param fn   {function} Context of the tag
+ * @param fn {function} Context of the tag
  * @constructor
  */
-
-
-exports.default = TagAbstract;
-function RegisterTag(html) {
-    var fn = arguments.length <= 1 || arguments[1] === undefined ? function () {} : arguments[1];
-
+function RegisterTag(fn) {
+    var html = fn.TEMPLATE;
     html = html.trim();
     var innerHtml = html.match(/<(.*?)>([\s\S]*?)(<\/\1>)(?![\s\S])/)[2].trim();
     var tag = html.match(/<.*?>/m)[0];
@@ -65,7 +66,7 @@ function RegisterTag(html) {
 
         tmpFn = tmpFn.__proto__;
 
-        if (tmpFn.prototype && tmpFn.constructor && tmpFn.constructor.name !== 'RiotTagAbstract' && tmpFn.constructor.name !== 'Object') {} else {
+        if (tmpFn.prototype && tmpFn.constructor && tmpFn.constructor.name !== 'TagAbstract' && tmpFn.constructor.name !== 'Object') {} else {
             tmpFn = false;
         }
     } while (tmpFn);
@@ -94,3 +95,5 @@ function RegisterTag(html) {
     };
     _riot2.default.tag(name, innerHtml, null, attr, ctx);
 }
+
+exports.riot = _riot2.default;
