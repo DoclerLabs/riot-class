@@ -1,5 +1,10 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RegisterTag = RegisterTag;
+
 var _riot = require('riot');
 
 var _riot2 = _interopRequireDefault(_riot);
@@ -8,8 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-_riot2.default.util.abstract = function RiotTagAbstract(tag, options) {
-    _classCallCheck(this, RiotTagAbstract);
+var TagAbstract = function TagAbstract(tag, options) {
+    _classCallCheck(this, TagAbstract);
 
     _riot2.default.observable(this);
     this.tag = tag;
@@ -29,7 +34,10 @@ _riot2.default.util.abstract = function RiotTagAbstract(tag, options) {
  * @param fn   {function} Context of the tag
  * @constructor
  */
-_riot2.default.util.register = function RiotRegisterTag(html) {
+
+
+exports.default = TagAbstract;
+function RegisterTag(html) {
     var fn = arguments.length <= 1 || arguments[1] === undefined ? function () {} : arguments[1];
 
     html = html.trim();
@@ -85,4 +93,4 @@ _riot2.default.util.register = function RiotRegisterTag(html) {
         this.tagClass = new fn(this, opts);
     };
     _riot2.default.tag(name, innerHtml, null, attr, ctx);
-};
+}
