@@ -8,7 +8,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-_riot2.default.abstract = function RiotTagAbstract(tag, options) {
+_riot2.default.util.abstract = function RiotTagAbstract(tag, options) {
     _classCallCheck(this, RiotTagAbstract);
 
     _riot2.default.observable(this);
@@ -29,7 +29,7 @@ _riot2.default.abstract = function RiotTagAbstract(tag, options) {
  * @param fn   {function} Context of the tag
  * @constructor
  */
-_riot2.default.register = function RiotRegisterTag(html) {
+_riot2.default.util.register = function RiotRegisterTag(html) {
     var fn = arguments.length <= 1 || arguments[1] === undefined ? function () {} : arguments[1];
 
     html = html.trim();
