@@ -1,27 +1,31 @@
 import riot from 'riot'
 
-export default class TagAbstract {
-    constructor(tag, options){
-        riot.observable(this)
-        this.tag     = tag
-        this.options = options
+export function TagAbstract(html){
+    let cls = class TagAbstract {
+        constructor(tag, options){
+            riot.observable(this)
+            this.tag     = tag
+            this.options = options
 
-        this.onMount && this.tag.on('mount', this.onMount.bind(this))
-        this.onBeforeMount && this.tag.on('before-mount', this.onBeforeMount.bind(this))
-        this.onUnMount && this.tag.on('unmount', this.onUnMount.bind(this))
-        this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this))
-        this.onUpdate && this.tag.on('update', this.onUpdate.bind(this))
-        this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this))
+            this.onMount && this.tag.on('mount', this.onMount.bind(this))
+            this.onBeforeMount && this.tag.on('before-mount', this.onBeforeMount.bind(this))
+            this.onUnMount && this.tag.on('unmount', this.onUnMount.bind(this))
+            this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this))
+            this.onUpdate && this.tag.on('update', this.onUpdate.bind(this))
+            this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this))
+        }
     }
+    cls.TEMPLATE = html
+    return cls
 }
 
 /**
  * Register a riot tag.
- * @param html {string}   Template code
- * @param fn   {function} Context of the tag
+ * @param fn {function} Context of the tag
  * @constructor
  */
-export function RegisterTag(html, fn = function(){}){
+export function RegisterTag(fn){
+    let html = fn.TEMPLATE
     html = html.trim()
     let innerHtml = html.match(/<(.*?)>([\s\S]*?)(<\/\1>)(?![\s\S])/)[2].trim()
     let tag       = html.match(/<.*?>/m)[0]
@@ -53,7 +57,7 @@ export function RegisterTag(html, fn = function(){}){
         if (
             tmpFn.prototype
             && tmpFn.constructor
-            && tmpFn.constructor.name !== 'RiotTagAbstract'
+            && tmpFn.constructor.name !== 'TagAbstract'
             && tmpFn.constructor.name !== 'Object'
         ) {}
         else {
