@@ -13,6 +13,7 @@ export function TagAbstract(html){
             this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this))
             this.onUpdate && this.tag.on('update', this.onUpdate.bind(this))
             this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this))
+            this.addEvents && this.addEvents()
         }
     }
     cls.TEMPLATE = html
@@ -27,7 +28,7 @@ export function TagAbstract(html){
 export function RegisterTag(fn){
     let html = fn.TEMPLATE
     html = html.trim()
-    let innerHtml = html.match(/<(.*?)>([\s\S]*?)(<\/\1>)(?![\s\S])/)[2].trim()
+    let innerHtml = html.match(/(^<[\s\S]*?>)([\s\S]*?)(<.*?>$)/)[2].trim()
     let tag       = html.match(/<.*?>/m)[0]
     let name      = tag.match(/<(.*?)(>| )/m)[1]
     let attr      = tag.match(/<.*? (.*?)>/m)

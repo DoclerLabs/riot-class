@@ -29,6 +29,7 @@ function TagAbstract(html) {
         this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this));
         this.onUpdate && this.tag.on('update', this.onUpdate.bind(this));
         this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this));
+        this.addEvents && this.addEvents();
     };
     cls.TEMPLATE = html;
     return cls;
@@ -42,7 +43,7 @@ function TagAbstract(html) {
 function RegisterTag(fn) {
     var html = fn.TEMPLATE;
     html = html.trim();
-    var innerHtml = html.match(/<(.*?)>([\s\S]*?)(<\/\1>)(?![\s\S])/)[2].trim();
+    var innerHtml = html.match(/(^<[\s\S]*?>)([\s\S]*?)(<.*?>$)/)[2].trim();
     var tag = html.match(/<.*?>/m)[0];
     var name = tag.match(/<(.*?)(>| )/m)[1];
     var attr = tag.match(/<.*? (.*?)>/m);
