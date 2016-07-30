@@ -31,7 +31,7 @@ export function RegisterTag(fn){
     let innerHtml = html.match(/(^<[\s\S]*?>)([\s\S]*?)(<.*?>$)/)[2].trim()
     let tag       = html.match(/<.*?>/m)[0]
     let name      = tag.match(/<(.*?)(>| )/m)[1]
-    let attr      = tag.match(/<.*? (.*?)>/m)
+    let attr      = tag.match(/<.*? (.*?)>/m)[1]
     let api       = []
     let tmpFn     = fn
     attr = attr ? attr[0] : undefined

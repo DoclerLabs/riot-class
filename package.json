@@ -1,6 +1,6 @@
 {
   "name": "riot-class",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "ES6 class wrapper to create riot tags.",
   "main": "dist/riot-class.js",
   "scripts": {
