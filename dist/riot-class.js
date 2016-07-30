@@ -46,10 +46,10 @@ function RegisterTag(fn) {
     var innerHtml = html.match(/(^<[\s\S]*?>)([\s\S]*?)(<.*?>$)/)[2].trim();
     var tag = html.match(/<.*?>/m)[0];
     var name = tag.match(/<(.*?)(>| )/m)[1];
-    var attr = tag.match(/<.*? (.*?)>/m)[1];
+    var attr = tag.match(/<.*? (.*?)>/m);
     var api = [];
     var tmpFn = fn;
-    attr = attr ? attr[0] : undefined;
+    attr = attr ? attr[1] : undefined;
 
     do {
         Object.getOwnPropertyNames(tmpFn.prototype).forEach(function (prop) {
