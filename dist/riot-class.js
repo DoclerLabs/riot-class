@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.riot = undefined;
+exports.riot = exports.TagProto = undefined;
 exports.TagAbstract = TagAbstract;
 exports.RegisterTag = RegisterTag;
 
@@ -13,26 +13,88 @@ var _riot2 = _interopRequireDefault(_riot);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * The prototype of the abstract class.
+ * It is exported, so your're able to extends it's 'prototype' even further.
+ */
+var TagProto = exports.TagProto = function TagProto(tag, options) {
+    _classCallCheck(this, TagProto);
+
+    TagProto.Constructing && TagProto.Constructing(this);
+    _riot2.default.observable(this);
+    this.tag = tag;
+    this.options = options;
+    this.onMount && this.tag.on('mount', this.onMount.bind(this));
+    this.onBeforeMount && this.tag.on('before-mount', this.onBeforeMount.bind(this));
+    this.onUnMount && this.tag.on('unmount', this.onUnMount.bind(this));
+    this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this));
+    this.onUpdate && this.tag.on('update', this.onUpdate.bind(this));
+    this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this));
+    this.addEvents && this.addEvents();
+};
+
+/**
+ * Return the abstract class itself, import this class in your tags.
+ *
+ *      class MyHeaderTag extends TagAbstract(`
+ *          <my-header-tag></my-header-tag>
+ *      `, { styles }) {
+ *          onMount(){}
+ *      }
+ *
+ * @param html
+ * @param mixins
+ * @returns {*}
+ * @constructor
+ */
+
+
 function TagAbstract(html) {
-    var cls = function TagAbstract(tag, options) {
-        _classCallCheck(this, TagAbstract);
+    var mixins = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-        _riot2.default.observable(this);
-        this.tag = tag;
-        this.options = options;
+    var RiotTag = function (_TagProto) {
+        _inherits(RiotTag, _TagProto);
 
-        this.onMount && this.tag.on('mount', this.onMount.bind(this));
-        this.onBeforeMount && this.tag.on('before-mount', this.onBeforeMount.bind(this));
-        this.onUnMount && this.tag.on('unmount', this.onUnMount.bind(this));
-        this.onBeforeUnMount && this.tag.on('before-unmount', this.onBeforeUnMount.bind(this));
-        this.onUpdate && this.tag.on('update', this.onUpdate.bind(this));
-        this.onUpdated && this.tag.on('updated', this.onUpdated.bind(this));
-        this.addEvents && this.addEvents();
-    };
-    cls.TEMPLATE = html;
-    return cls;
+        function RiotTag() {
+            var _Object$getPrototypeO;
+
+            _classCallCheck(this, RiotTag);
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(RiotTag)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+
+            var _loop = function _loop(i) {
+                var name = '_' + i;
+                mixins.hasOwnProperty(i) && Object.defineProperty(_this, i, {
+                    set: function set(v) {
+                        this[name] = v;
+                    },
+                    get: function get() {
+                        return this[name] = v;
+                    }
+                });
+            };
+
+            for (var i in mixins) {
+                _loop(i);
+            }
+            return _this;
+        }
+
+        return RiotTag;
+    }(TagProto);
+
+    RiotTag.TEMPLATE = html;
+    return RiotTag;
 }
 
 /**
@@ -67,7 +129,7 @@ function RegisterTag(fn) {
 
         tmpFn = tmpFn.__proto__;
 
-        if (tmpFn.prototype && tmpFn.constructor && tmpFn.constructor.name !== 'TagAbstract' && tmpFn.constructor.name !== 'Object') {} else {
+        if (tmpFn.prototype && tmpFn.constructor && tmpFn.constructor.name !== 'TagProto' && tmpFn.constructor.name !== 'Object') {} else {
             tmpFn = false;
         }
     } while (tmpFn);
