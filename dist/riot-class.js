@@ -9,9 +9,9 @@ exports.RegisterTag = RegisterTag;
 
 var _riot = require('riot');
 
-var _riot2 = _interopRequireDefault(_riot);
+var riot = _interopRequireWildcard(_riot);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -27,7 +27,7 @@ var TagProto = exports.TagProto = function TagProto(tag, options) {
     _classCallCheck(this, TagProto);
 
     TagProto.Constructing && TagProto.Constructing(this);
-    _riot2.default.observable(this);
+    riot.observable(this);
     this.tag = tag;
     this.options = options;
     this.onMount && this.tag.on('mount', this.onMount.bind(this));
@@ -56,13 +56,13 @@ var TagProto = exports.TagProto = function TagProto(tag, options) {
 
 
 function TagAbstract(html) {
-    var mixins = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var mixins = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     var RiotTag = function (_TagProto) {
         _inherits(RiotTag, _TagProto);
 
         function RiotTag() {
-            var _Object$getPrototypeO;
+            var _ref;
 
             _classCallCheck(this, RiotTag);
 
@@ -70,7 +70,7 @@ function TagAbstract(html) {
                 args[_key] = arguments[_key];
             }
 
-            var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(RiotTag)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+            var _this = _possibleConstructorReturn(this, (_ref = RiotTag.__proto__ || Object.getPrototypeOf(RiotTag)).call.apply(_ref, [this].concat(args)));
 
             var _loop = function _loop(i) {
                 var name = '_' + i;
@@ -156,7 +156,7 @@ function RegisterTag(fn) {
         });
         this.tagClass = new fn(this, opts);
     };
-    _riot2.default.tag(name, innerHtml, null, attr, ctx);
+    riot.tag(name, innerHtml, null, attr, ctx);
 }
 
-exports.riot = _riot2.default;
+exports.riot = riot;
