@@ -1,4 +1,4 @@
-import riot from 'riot'
+import * as riot from 'riot'
 
 /**
  * The prototype of the abstract class.
